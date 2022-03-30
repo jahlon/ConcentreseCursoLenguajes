@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1778
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concentrese", "Concentrese\Concentrese.csproj", "{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteConcentrese", "Concentrese\ClienteConcentrese.csproj", "{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServidorConcentrese", "ServidorConcentrese\ServidorConcentrese.csproj", "{F8732C5E-5234-4242-89E6-0AC0233069AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteConcentreseTests", "ClienteConcentreseTests\ClienteConcentreseTests.csproj", "{3473B8DD-773F-4C97-ABB5-DC2557500F63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8732C5E-5234-4242-89E6-0AC0233069AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8732C5E-5234-4242-89E6-0AC0233069AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8732C5E-5234-4242-89E6-0AC0233069AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8732C5E-5234-4242-89E6-0AC0233069AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3473B8DD-773F-4C97-ABB5-DC2557500F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3473B8DD-773F-4C97-ABB5-DC2557500F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3473B8DD-773F-4C97-ABB5-DC2557500F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3473B8DD-773F-4C97-ABB5-DC2557500F63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Concentrese
+namespace Concentrese.UI
 {
-    public partial class Form1 : Form
+    public partial class DialogoConectar : Form
     {
-        public Form1()
+        public DialogoConectar()
         {
             InitializeComponent();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

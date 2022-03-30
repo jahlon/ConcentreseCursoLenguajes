@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}</ProjectGuid>
+    <ProjectGuid>{F8732C5E-5234-4242-89E6-0AC0233069AE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Concentrese</RootNamespace>
-    <AssemblyName>Concentrese</AssemblyName>
+    <RootNamespace>ServidorConcentrese</RootNamespace>
+    <AssemblyName>ServidorConcentrese</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,12 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Dominio\Concentrese.cs" />
+    <Compile Include="Dominio\Encuentro.cs" />
+    <Compile Include="Dominio\EstadisticaJugador.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -75,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
