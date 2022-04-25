@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1778
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteConcentrese", "Concentrese\ClienteConcentrese.csproj", "{FFB2462A-C3D9-4EE6-A518-31A3E0EB3D8F}"
 EndProject
@@ -9,7 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServidorConcentrese", "Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteConcentreseTests", "ClienteConcentreseTests\ClienteConcentreseTests.csproj", "{3473B8DD-773F-4C97-ABB5-DC2557500F63}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ConcentreseComun", "ConcentreseComun\ConcentreseComun.shproj", "{A0C3C06E-204C-4AAD-9B33-73F57D90ECF1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ConcentreseComun\ConcentreseComun.projitems*{a0c3c06e-204c-4aad-9b33-73f57d90ecf1}*SharedItemsImports = 13
+		ConcentreseComun\ConcentreseComun.projitems*{f8732c5e-5234-4242-89e6-0ac0233069ae}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
