@@ -85,6 +85,98 @@ namespace ServidorConcentrese.Dominio
 
         }
 
+        protected void ProcesarJugada(int jugador)
+        {
+            TcpClient clientJugadorActivo = (jugador == 1) ? clienteJugador1 : clienteJugador2;
+            TcpClient clientJugadorInactivo = (jugador == 1) ? clienteJugador2 : clienteJugador1;
+
+            // Leer datos de la primera casilla de la jugada
+            string lineaCasilla1 = RecibirDatos(clientJugadorActivo);
+            if (lineaCasilla1 != null)
+            {
+                if (!lineaCasilla1.StartsWith(JUGADA))
+                {
+                    // TODO: Arrojar una excepcion personalizada ConcrentreseException
+                    throw new Exception($"Se esperaba {JUGADA}, pero se recibip {lineaCasilla1}");
+                }
+                EnviarDatos(clientJugadorInactivo, lineaCasilla1);
+            }
+
+            // Leer datos de la segunda casilla de la jugada
+            string lineaCasilla2 = RecibirDatos(clientJugadorActivo);
+            if (lineaCasilla2 != null)
+            {
+                if (!lineaCasilla2.StartsWith(JUGADA))
+                {
+                    // TODO: Arrojar una excepcion personalizada ConcrentreseException
+                    throw new Exception($"Se esperaba {JUGADA}, pero se recibio {lineaCasilla2}");
+                }
+                EnviarDatos(clientJugadorInactivo, lineaCasilla2);
+            }
+
+            // Leer el resultado de la jugada
+            string lineaResultado = RecibirDatos(clientJugadorActivo);
+            if (lineaResultado != null)
+            {
+                if (!lineaResultado.StartsWith(FALLO) && !lineaResultado.StartsWith(PAREJA))
+                {
+                    // TODO: Arrojar una excepcion personalizada ConcrentreseException
+                    throw new Exception($"Se esperaba {FALLO} o {PAREJA}, pero se recibio {lineaResultado}");
+                }
+
+                if (lineaResultado.StartsWith(PAREJA))
+                {
+                    JugadorRemoto jugadorRemoto = (jugador == 1) ? Jugador1 : Jugador2;
+                    jugadorRemoto.PuntosEncuentro += 1;
+
+                    FinJuego = bool.Parse(lineaResultado.Split(':')[3]);
+                }
+                EnviarDatos(clientJugadorInactivo, lineaResultado);
+            }
+        }
+
+        protected void TerminarEncuentro(int jugador)
+        {
+            TcpClient clientJugadorActivo = (jugador == 1) ? clienteJugador1 : clienteJugador2;
+            TcpClient clientJugadorInactivo = (jugador == 1) ? clienteJugador2 : clienteJugador1;
+
+            // Leer datos del jugador activo
+            string lineaFin = RecibirDatos(clientJugadorActivo);
+            if (lineaFin != null)
+            {
+                if (!lineaFin.StartsWith(FIN_JUEGO))
+                {
+                    // TODO: Arrojar una excepcion personalizada ConcrentreseException
+                    throw new Exception($"Se esperaba {FIN_JUEGO}, pero se recibio {lineaFin}");
+                }
+
+                EstadisticaJugador ganador = null;
+                EstadisticaJugador perdedor = null;
+
+                if (Jugador1.PuntosEncuentro > Jugador2.PuntosEncuentro)
+                {
+                    ganador = Jugador1.Estadisticas;
+                    perdedor = Jugador2.Estadisticas;
+                }
+                else
+                {
+                    ganador = Jugador2.Estadisticas;
+                    perdedor = Jugador1.Estadisticas;
+                }
+
+                // AdministradorResultado debe registrar las victorias y derrotas en la BD
+
+                string lineaGanador = new StringBuilder().Append(GANADOR).Append(":")
+                                        .Append(ganador.Nombre).ToString();
+                EnviarDatos(clientJugadorInactivo, lineaGanador);
+                EnviarDatos(clientJugadorActivo, lineaGanador);
+
+                clienteJugador1.Close();
+                clienteJugador2.Close();
+            }
+        }
+                    
+
         private string GenerarNumerosTablero()
         {
             List<int> numeros = new List<int>();
@@ -111,7 +203,27 @@ namespace ServidorConcentrese.Dominio
 
         protected override void EjecutarHilo()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IniciarEncuentro();
+
+                int jugador = 1;
+
+                while(!FinJuego)
+                {
+                    ProcesarJugada(jugador);
+                    if (FinJuego)
+                        TerminarEncuentro(jugador);
+                    else
+                        jugador = (jugador == 1) ? 2 : 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                FinJuego = true;
+                clienteJugador1.Close();
+                clienteJugador2.Close();
+            }
         }
     }
 }
