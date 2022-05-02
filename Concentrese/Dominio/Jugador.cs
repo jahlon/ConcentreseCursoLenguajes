@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClienteConcentrese
 {
-    class Jugador
+    public class Jugador
     {
         public const int SIN_CONECTAR = 0;
         public const int EN_TURNO = 1;
