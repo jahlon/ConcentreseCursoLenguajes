@@ -15,6 +15,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ConcentreseComun\ConcentreseComun.projitems*{a0c3c06e-204c-4aad-9b33-73f57d90ecf1}*SharedItemsImports = 13
 		ConcentreseComun\ConcentreseComun.projitems*{f8732c5e-5234-4242-89e6-0ac0233069ae}*SharedItemsImports = 4
+		ConcentreseComun\ConcentreseComun.projitems*{ffb2462a-c3d9-4ee6-a518-31a3e0eb3d8f}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

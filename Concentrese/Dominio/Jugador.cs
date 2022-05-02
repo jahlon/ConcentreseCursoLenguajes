@@ -13,6 +13,14 @@ namespace ClienteConcentrese
         public const int EN_TURNO = 1;
         public const int ESPERANDO_TURNO_OPONENTE = 3;
         public const string JUGADOR = "JUGADOR";
+        public const string INFO = "INFO";
+        public const string PRIMER_TURNO = "1";
+        public const string SEGUNDO_TURNO = "2";
+        public const string JUGADA = "JUGADA";
+        public const string FALLO = "FALLO";
+        public const string PAREJA = "PAREJA";
+        public const string FIN_JUEGO = "FIN_JUEGO";
+        public const string GANADOR = "GANADOR";
 
         public string Nombre { get; set; }
         public string Host { get; set; }
@@ -23,6 +31,8 @@ namespace ClienteConcentrese
         private TcpClient cliente;
         private NetworkStream flujo;
         public Tablero TableroJuego;
+
+        public bool JuegoTerminado { get; set; }
 
         public Jugador(string host, int puerto, string nombre)
         {
@@ -75,7 +85,72 @@ namespace ClienteConcentrese
                 EstadoJuego = ESPERANDO_TURNO_OPONENTE;
         }
 
+        public void EsperarPrimeraJugada()
+        {
+            string lineaJugada = RecibirDatos();
+            int numeroCasilla1 = int.Parse(lineaJugada.Split(':')[1]);
+            TableroJuego.SeleccionarPrimeraCasilla(numeroCasilla1);
+            // TODO: Mostrar informacion en la UI
+        }
 
+        public void EsperarSegundaJugada()
+        {
+            string lineaJugada = RecibirDatos();
+            int numeroCasilla1 = int.Parse(lineaJugada.Split(':')[1]);
+            TableroJuego.SeleccionarSegundaCasilla(numeroCasilla1);
+            // TODO: Mostrar informacion en la UI
+        }
+
+        public bool EsperarResultado()
+        {
+            EstadoJuego = EN_TURNO;
+
+            string resultado = RecibirDatos();
+            if(resultado.StartsWith(FALLO))
+            {
+                // TODO: Mostrar mensaje en el area de informacion
+            }
+            else if(resultado.StartsWith(PAREJA))
+            {
+                string[] datosResultado = resultado.Split(':');
+                JuegoTerminado = bool.Parse(datosResultado[3]);
+                // TODO: Mostrar mensaje en el area de informacion
+                return true;
+            }
+
+            return false;
+        }
+
+        public void HacerPrimeraJugada(int numeroCasilla)
+        {
+            TableroJuego.SeleccionarPrimeraCasilla(numeroCasilla);
+            string jugada = new StringBuilder().Append(JUGADA).Append(":").Append(numeroCasilla).ToString();
+            EnviarDatos(jugada);
+        }
+
+        public bool HacerSegundaJugada(int numeroCasilla)
+        {
+            bool hizoPareja = TableroJuego.SeleccionarSegundaCasilla(numeroCasilla);
+            string jugada = new StringBuilder().Append(JUGADA).Append(":").Append(numeroCasilla).ToString();
+            EnviarDatos(jugada);
+
+            string resultado = FALLO;
+
+            if(hizoPareja)
+            {
+                int casilla1 = TableroJuego.PrimerCasillaSeleccionada.Numero;
+                resultado = new StringBuilder().Append(PAREJA)
+                                .Append(":").Append(casilla1)
+                                .Append(":").Append(numeroCasilla)
+                                .Append(":").Append(TableroJuego.EstaCompleto())
+                                .ToString();
+            }
+            EnviarDatos(resultado);
+
+            EstadoJuego = ESPERANDO_TURNO_OPONENTE;
+
+            return hizoPareja;
+        }
         private void InicializarTablero(string numerosTablero)
         {
             //string[] strNumeros = numeroTablero.Split(',');

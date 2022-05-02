@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dominio\Casilla.cs" />
+    <Compile Include="Dominio\HiloConectar.cs" />
+    <Compile Include="Dominio\HiloEnviarJugada.cs" />
+    <Compile Include="Dominio\HiloEsperarJugada.cs" />
     <Compile Include="Dominio\Juego.cs" />
     <Compile Include="Dominio\Jugador.cs" />
     <Compile Include="Dominio\Tablero.cs" />
@@ -120,5 +123,6 @@
     <Content Include="UI\Imagenes\9.png" />
     <Content Include="UI\Imagenes\help.png" />
   </ItemGroup>
+  <Import Project="..\ConcentreseComun\ConcentreseComun.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
