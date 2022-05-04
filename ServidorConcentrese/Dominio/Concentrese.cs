@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServidorConcentrese.Dominio
 {
-    class Concentrese
+    public class Concentrese
     {
         public ICollection<Encuentro> Encuentros;
         public ICollection<EstadisticaJugador> Estadisticas;

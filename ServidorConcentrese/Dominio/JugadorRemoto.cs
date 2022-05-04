@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServidorConcentrese.Dominio
 {
-    class JugadorRemoto
+    public class JugadorRemoto
     {
         public int PuntosEncuentro { get; set; }
 

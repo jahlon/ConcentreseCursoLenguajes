@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServidorConcentrese.Dominio
 {
-    class EstadisticaJugador
+    public class EstadisticaJugador
     {
         public string Nombre { get; set; }
         public int Ganados { get; set; }

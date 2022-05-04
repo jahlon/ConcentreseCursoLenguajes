@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ServidorConcentrese.Dominio
 {
-    class Encuentro : HiloBase
+    public class Encuentro : HiloBase
     {
         public const string JUGADOR = "JUGADOR";
         public const string INFO = "INFO";
