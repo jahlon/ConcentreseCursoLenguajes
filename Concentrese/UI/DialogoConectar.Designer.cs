@@ -64,7 +64,6 @@
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Puerto:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // textBoxJugador
             // 
@@ -101,6 +100,7 @@
             this.buttonConectar.TabIndex = 6;
             this.buttonConectar.Text = "Conectar";
             this.buttonConectar.UseVisualStyleBackColor = true;
+            this.buttonConectar.Click += new System.EventHandler(this.buttonConectar_Click);
             // 
             // buttonCancelar
             // 
@@ -110,6 +110,7 @@
             this.buttonCancelar.TabIndex = 7;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
+            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             // 
             // DialogoConectar
             // 

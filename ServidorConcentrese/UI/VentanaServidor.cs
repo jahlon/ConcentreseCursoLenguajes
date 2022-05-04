@@ -15,6 +15,9 @@ namespace ServidorConcentrese
         {
             ServidorJuegoConcetrense = servidorConcentrese;
             InitializeComponent();
+            HiloReceptorConexiones = new Thread(() => ServidorJuegoConcetrense.RecibirConexiones());
+            HiloReceptorConexiones.IsBackground = true;
+            HiloReceptorConexiones.Start();
         }
 
         private void ActualizarListaEncuentros()

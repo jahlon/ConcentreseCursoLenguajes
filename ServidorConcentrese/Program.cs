@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServidorConcentrese.Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace ServidorConcentrese
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Form1());
+            Concentrese servidorConcentrese = new Concentrese();
+            Application.Run(new VentanaServidor(servidorConcentrese));
         }
     }
 }

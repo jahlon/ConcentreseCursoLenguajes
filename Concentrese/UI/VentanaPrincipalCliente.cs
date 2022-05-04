@@ -22,6 +22,8 @@ namespace Concentrese.UI
 
         delegate void CambiarEstadoTableroCallback();
 
+        delegate void InicializarTableroCallback(Tablero tablero);
+
         public ConcentreseAppContoller Controlador { get; set; }
         private List<CasillaGrafica> CasillasGraficas;
         private int Movimientos { get; set; }
@@ -34,7 +36,13 @@ namespace Concentrese.UI
 
         public void CargarTablero(Tablero tablero)
         {
-            InicializarTablero(tablero);
+            if(tablePanelTablero.InvokeRequired)
+            {
+                InicializarTableroCallback delegado = new InicializarTableroCallback(CargarTablero);
+                this.Invoke(delegado, tablero);
+            }
+            else
+                InicializarTablero(tablero);
         }
 
         private Image ImagenCasilla(Casilla casilla)
@@ -123,13 +131,15 @@ namespace Concentrese.UI
             casillaGrafica.Refresh();
         }
 
+        public void FinalizarJuego()
+        {
+            MessageBox.Show("Fin de juego!");
+        }
+
         private void buttonConectarAServidor_Click(object sender, System.EventArgs e)
         {
-            if (sender.GetType() == typeof(CasillaGrafica))
-            {
-                int numeroCasilla = ((CasillaGrafica)sender).Numero;
-                Console.WriteLine(numeroCasilla);
-            }
+            DialogoConectar dialogo = new DialogoConectar(this, "localhost", 9999);
+            dialogo.ShowDialog(this);
         }
     }
 }

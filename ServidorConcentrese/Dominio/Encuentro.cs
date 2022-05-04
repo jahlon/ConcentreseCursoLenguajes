@@ -201,6 +201,12 @@ namespace ServidorConcentrese.Dominio
             return infoBuilder.ToString();
         }
 
+        public override string ToString()
+        {
+            // return $"{Jugador1.Estadisticas.Nombre} vs {Jugador2.Estadisticas.Nombre}";
+            return $"Encuentro {DateTime.Now}";
+        }
+
         protected override void EjecutarHilo()
         {
             try
