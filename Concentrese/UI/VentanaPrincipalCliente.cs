@@ -92,7 +92,13 @@ namespace Concentrese.UI
 
         public void BloquearTablero()
         {
-            tablePanelTablero.Enabled = false;
+            if(tablePanelTablero.InvokeRequired)
+            {
+                CambiarEstadoTableroCallback delegado = new CambiarEstadoTableroCallback(BloquearTablero);
+                Invoke(delegado);
+            }
+            else
+                tablePanelTablero.Enabled = false;
         }
 
         public void DesbloquearTablero()

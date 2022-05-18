@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dominio\AdministradorResultados.cs" />
     <Compile Include="Dominio\Concentrese.cs" />
     <Compile Include="Dominio\Encuentro.cs" />
     <Compile Include="Dominio\EstadisticaJugador.cs" />

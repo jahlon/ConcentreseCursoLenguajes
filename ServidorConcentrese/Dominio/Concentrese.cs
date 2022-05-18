@@ -13,11 +13,15 @@ namespace ServidorConcentrese.Dominio
         private TcpListener servidor;
         private TcpClient clienteEnEspera;
         public ICollection<Encuentro> Encuentros;
+        public AdministradorResultados AdministradorResultadosServidor;
         public ICollection<EstadisticaJugador> Estadisticas;
 
         public Concentrese()
         {
             Encuentros = new List<Encuentro>();
+            AdministradorResultadosServidor = new AdministradorResultados();
+            AdministradorResultadosServidor.ConectarABaseDeDatos();
+            AdministradorResultadosServidor.InicializarTabla();
             Estadisticas = new List<EstadisticaJugador>();
         }
 
@@ -35,7 +39,7 @@ namespace ServidorConcentrese.Dominio
                 while (true)
                 {
                     TcpClient nuevoCliente = servidor.AcceptTcpClient();
-                    Console.WriteLine("Conexion recibida");
+                    Console.WriteLine($"Conexion recibida {nuevoCliente.Client.RemoteEndPoint}");
                     CrearEncuentro(nuevoCliente);
                 }
             }

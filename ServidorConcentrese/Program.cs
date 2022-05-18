@@ -15,6 +15,7 @@ namespace ServidorConcentrese
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", Properties.Settings.Default.DataDirectory);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Concentrese servidorConcentrese = new Concentrese();
