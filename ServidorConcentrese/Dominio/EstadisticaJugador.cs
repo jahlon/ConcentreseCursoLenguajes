@@ -30,5 +30,10 @@ namespace ServidorConcentrese.Dominio
             Ganados = ganados;
             Perdidos = perdidos;
         }
+
+        public override string ToString()
+        {
+            return $"{Nombre}: {Ganados} ganados / {Perdidos} perdidos ({Efectivadad:F} %)";
+        }
     }
 }

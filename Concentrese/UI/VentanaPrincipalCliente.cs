@@ -132,9 +132,18 @@ namespace Concentrese.UI
 
         public void DescubrirCasilla(Casilla casilla)
         {
+         
             var casillaGrafica = CasillasGraficas[casilla.Numero - 1];
-            casillaGrafica.Descubrir();
-            casillaGrafica.Refresh();
+            if (casillaGrafica.InvokeRequired)
+            {
+                CambiarEstadoCasillaCallback delegado = new CambiarEstadoCasillaCallback(DescubrirCasilla);
+                Invoke(delegado, casilla);
+            }
+            else
+            {
+                casillaGrafica.Descubrir();
+                casillaGrafica.Refresh();
+            }
         }
 
         public void FinalizarJuego()

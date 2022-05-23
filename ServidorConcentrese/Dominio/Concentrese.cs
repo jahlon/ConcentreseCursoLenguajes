@@ -62,7 +62,7 @@ namespace ServidorConcentrese.Dominio
 
                 clienteEnEspera = null;
 
-                Encuentro nuevoEncuentro = new Encuentro(jugador1, jugador2);
+                Encuentro nuevoEncuentro = new Encuentro(jugador1, jugador2, AdministradorResultadosServidor);
                 Encuentros.Add(nuevoEncuentro);
                 Console.WriteLine($"Nuevo encuentro creado {nuevoEncuentro}");
                 nuevoEncuentro.Start();

@@ -1,6 +1,7 @@
 ﻿using ConcentreseComun;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -23,18 +24,18 @@ namespace ServidorConcentrese.Dominio
 
         private readonly TcpClient clienteJugador1;
         private readonly TcpClient clienteJugador2;
-        // private readonly AdministradorResultados administradorResultados;
+        private readonly AdministradorResultados administradorResultados;
 
         public JugadorRemoto Jugador1 { get; set; }
         public JugadorRemoto Jugador2 { get; set; }
         public bool FinJuego { get; set; }
 
-        public Encuentro(TcpClient cliente1, TcpClient cliente2)
+        public Encuentro(TcpClient cliente1, TcpClient cliente2, AdministradorResultados administrador)
         {
             clienteJugador1 = cliente1;
             clienteJugador2 = cliente2;
             FinJuego = false;
-            // TODO: Recibir el objeto AdministradorResultados como parametro e inicializar el atributo
+            administradorResultados = administrador;
         }
 
         private void EnviarDatos(TcpClient client, string datos)
@@ -54,18 +55,36 @@ namespace ServidorConcentrese.Dominio
             return datos;
         }
 
+        private EstadisticaJugador ConsultarJugador(string info)
+        {
+            if(info.StartsWith(JUGADOR))
+            {
+                string nombre = info.Split(':')[1];
+                try
+                {
+                    return administradorResultados.ConsultarEstadisticaJugador(nombre);
+                }
+                catch(SqlException ex)
+                {
+                    throw new Exception($"Hubo un problema leyendo la informacion del jugador {ex.Message}");
+                }
+            }
+            else
+            {
+                throw new Exception($"El mensaje no tiene el formato esperado");
+            }
+        }
+
         protected void IniciarEncuentro()
         {
             // Leer la informaicion de los jugadores
             string infoJugador1 = RecibirDatos(clienteJugador1);
-            EstadisticaJugador estadisiticaJugador1 = new EstadisticaJugador("pedro", 1, 1);
-            // TODO: Consultar estadisticas de jugador
-            // TODO: Crear JugadorRemoto
+            EstadisticaJugador estadisiticaJugador1 = ConsultarJugador(infoJugador1);
+            Jugador1 = new JugadorRemoto(estadisiticaJugador1);
 
             string infoJugador2 = RecibirDatos(clienteJugador2);
-            EstadisticaJugador estadisiticaJugador2 = new EstadisticaJugador("maria", 1, 1);
-            // TODO: Consultar estadisticas de jugador
-            // TODO: Crear JugadorRemoto
+            EstadisticaJugador estadisiticaJugador2 = ConsultarJugador(infoJugador2);
+            Jugador2 = new JugadorRemoto(estadisiticaJugador2);
 
             // Enviar a cada jugador las informacion sobre su registro y el del oponente
             EnviarDatos(clienteJugador1, InfoJugador(estadisiticaJugador1));
@@ -97,7 +116,7 @@ namespace ServidorConcentrese.Dominio
                 if (!lineaCasilla1.StartsWith(JUGADA))
                 {
                     // TODO: Arrojar una excepcion personalizada ConcrentreseException
-                    throw new Exception($"Se esperaba {JUGADA}, pero se recibip {lineaCasilla1}");
+                    throw new Exception($"Se esperaba {JUGADA}, pero se recibio {lineaCasilla1}");
                 }
                 EnviarDatos(clientJugadorInactivo, lineaCasilla1);
             }
@@ -153,6 +172,9 @@ namespace ServidorConcentrese.Dominio
                 EstadisticaJugador ganador = null;
                 EstadisticaJugador perdedor = null;
 
+                Console.WriteLine($"Puntos Jugador {Jugador1.Estadisticas.Nombre}: {Jugador1.PuntosEncuentro}");
+                Console.WriteLine($"Puntos Jugador {Jugador2.Estadisticas.Nombre}: {Jugador2.PuntosEncuentro}");
+
                 if (Jugador1.PuntosEncuentro > Jugador2.PuntosEncuentro)
                 {
                     ganador = Jugador1.Estadisticas;
@@ -164,7 +186,8 @@ namespace ServidorConcentrese.Dominio
                     perdedor = Jugador1.Estadisticas;
                 }
 
-                // AdministradorResultado debe registrar las victorias y derrotas en la BD
+                administradorResultados.RegistrarVictoria(ganador.Nombre);
+                administradorResultados.RegistrarDerrota(perdedor.Nombre);
 
                 string lineaGanador = new StringBuilder().Append(GANADOR).Append(":")
                                         .Append(ganador.Nombre).ToString();

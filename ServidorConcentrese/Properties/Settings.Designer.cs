@@ -34,7 +34,7 @@ namespace ServidorConcentrese.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.56.1")]
         public string Ip {
             get {
                 return ((string)(this["Ip"]));

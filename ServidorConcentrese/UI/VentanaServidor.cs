@@ -27,7 +27,8 @@ namespace ServidorConcentrese
 
         private void ActualizarListaJugadores()
         {
-            
+            List<EstadisticaJugador> estadisticas = ServidorJuegoConcetrense.AdministradorResultadosServidor.ConsultarRegistrosJugadores();
+            listBoxEstadisticas.DataSource = estadisticas;
         }
 
         private void buttonRefrescarEncuentros_Click(object sender, EventArgs e)
