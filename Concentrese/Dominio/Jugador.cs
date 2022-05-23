@@ -151,6 +151,14 @@ namespace ClienteConcentrese
 
             return hizoPareja;
         }
+
+        public void FinalizarJuego()
+        {
+            EnviarDatos(FIN_JUEGO);
+            string ganador = RecibirDatos();
+            Console.WriteLine($"GANADOR: {ganador}");
+        }
+
         private void InicializarTablero(string numerosTablero)
         {
             //string[] strNumeros = numeroTablero.Split(',');

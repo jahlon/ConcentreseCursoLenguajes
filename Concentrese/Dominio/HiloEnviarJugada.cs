@@ -47,6 +47,7 @@ namespace Concentrese.Dominio
 
                     if(jugador.TableroJuego.EstaCompleto())
                     {
+                        jugador.FinalizarJuego();
                         vista.FinalizarJuego();
                     }
                     else

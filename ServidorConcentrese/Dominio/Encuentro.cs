@@ -156,6 +156,7 @@ namespace ServidorConcentrese.Dominio
 
         protected void TerminarEncuentro(int jugador)
         {
+            Console.WriteLine("TERMINANDO ENCUENTRO");
             TcpClient clientJugadorActivo = (jugador == 1) ? clienteJugador1 : clienteJugador2;
             TcpClient clientJugadorInactivo = (jugador == 1) ? clienteJugador2 : clienteJugador1;
 
@@ -249,6 +250,7 @@ namespace ServidorConcentrese.Dominio
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 FinJuego = true;
                 clienteJugador1.Close();
                 clienteJugador2.Close();
